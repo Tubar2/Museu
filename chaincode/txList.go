@@ -10,7 +10,9 @@ var txList = []tx.Transaction{
 	tx.CreateAsset,
 	tx.UpdateAsset,
 	tx.DeleteAsset,
-	txdefs.CreateNewLibrary,
-	txdefs.GetNumberOfBooksFromLibrary,
-	txdefs.UpdateBookTenant,
+	// txdefs.CreateNewLibrary,
+	// txdefs.GetNumberOfBooksFromLibrary,
+	// txdefs.UpdateBookTenant,
+	txdefs.CreateNewMuseum,
+	txdefs.UpdateWorkArtist,
 }
