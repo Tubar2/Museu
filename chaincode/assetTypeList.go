@@ -6,8 +6,12 @@ import (
 )
 
 var assetTypeList = []assets.AssetType{
-	assettypes.Person,
-	assettypes.Book,
-	assettypes.Library,
-	assettypes.Secret,
+	// assettypes.Person,
+	// assettypes.Book,
+	// assettypes.Library,
+	// assettypes.Secret,
+	assettypes.Profession,
+	assettypes.Artist,
+	assettypes.Work,
+	assettypes.Museum,
 }
