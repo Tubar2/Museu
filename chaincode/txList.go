@@ -15,4 +15,5 @@ var txList = []tx.Transaction{
 	// txdefs.UpdateBookTenant,
 	txdefs.CreateNewMuseum,
 	txdefs.UpdateWorkArtist,
+	txdefs.GetWorksFromMuseum,
 }
