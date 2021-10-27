@@ -16,4 +16,5 @@ var txList = []tx.Transaction{
 	txdefs.CreateNewMuseum,
 	txdefs.UpdateWorkArtist,
 	txdefs.GetWorksFromMuseum,
+	txdefs.GetArtistByProfession,
 }
