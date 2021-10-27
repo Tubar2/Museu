@@ -29,22 +29,37 @@ var GetWorksFromMuseum = tx.Transaction{
 
 	Routine: func(sw *stubwrapper.StubWrapper, req map[string]interface{}) ([]byte, errors.ICCError) {
 		// Get museum name from arguments
-		museumKey, ok := req["museum"].(assets.Key)
-		if !ok {
-			return nil, errors.WrapError(nil, "Parameter museum must be an asset")
-		}
+		museumKey, _ := req["museum"].(assets.Key)
 
 		museumMap, err := museumKey.GetMap(sw)
 		if err != nil {
 			return nil, errors.WrapError(err, "failed to get asset from the ledger")
 		}
 
-		obras, ok := museumMap["works"].([]assets.AssetType)
+		obras, ok := museumMap["works"].([]interface{})
 		if !ok {
 			return nil, errors.WrapError(nil, "Unable to fetch works")
 		}
+
+		var newAssets []interface{}
+		for _, obra := range obras {
+			obraI, _ := obra.(map[string]interface{})
+
+			obraKey, err := assets.NewKey(obraI)
+			if err != nil {
+				return nil, errors.WrapError(err, "Unable to create new Key from map to interface")
+			}
+
+			obraMap, err := obraKey.GetMap(sw)
+			if err != nil {
+				return nil, errors.WrapError(err, "Unable to get obraMap")
+			}
+			// artistKey := obraMap["artist"].(assets.Key)
+			newAssets = append(newAssets, obraMap)
+		}
+
 		returnMap := make(map[string]interface{})
-		returnMap["obras"] = obras
+		returnMap["obras"] = newAssets
 
 		returnJSON, nerr := json.Marshal(returnMap)
 		if nerr != nil {
