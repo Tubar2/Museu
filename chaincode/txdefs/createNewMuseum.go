@@ -29,7 +29,7 @@ var CreateNewMuseum = tx.Transaction{
 		name, _ := req["name"].(string)
 
 		museumMap := make(map[string]interface{})
-		// TODO: Entender o que é esse @
+
 		museumMap["@assetType"] = "museum"
 		museumMap["name"] = name
 
