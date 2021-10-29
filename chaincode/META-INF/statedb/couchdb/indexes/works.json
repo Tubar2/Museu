@@ -1,0 +1,8 @@
+{
+    "type": "json",
+    "index": {
+      "fields": [
+          "works.@key"
+      ]
+    }
+  }
