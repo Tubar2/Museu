@@ -14,4 +14,5 @@ var assetTypeList = []assets.AssetType{
 	assettypes.Artist,
 	assettypes.Work,
 	assettypes.Museum,
+	assettypes.Sale12,
 }
