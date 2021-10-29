@@ -27,6 +27,8 @@ func getMuseumWithWork(sw *stubwrapper.StubWrapper, work assets.Key) (map[string
 	}
 
 	res, err := iterator.Next()
+	// fmt.Println("response from iterator: ", res)
+	// fmt.Println("error from iterator: ", err)
 	if err != nil {
 		return nil, errors.WrapErrorWithStatus(err, "error iterating response", 500)
 	}
@@ -35,6 +37,7 @@ func getMuseumWithWork(sw *stubwrapper.StubWrapper, work assets.Key) (map[string
 	if err != nil {
 		return nil, errors.WrapErrorWithStatus(err, "error during unmarshal of response", 500)
 	}
+	fmt.Println("Mapped response is: ", response)
 
 	return response, nil
 }
@@ -71,13 +74,23 @@ var MakeSaleProposition = tx.Transaction{
 			return nil, errors.WrapError(err, "couldn't get museum with work")
 		}
 
-		museumKey, err := assets.NewKey(res)
+		// museumKey, err := assets.NewKey(res)
+		// if err != nil {
+		// 	return nil, errors.WrapError(err, "couldn't get key from museum")
+		// }
+		workMap := map[string]interface{}{
+			"@assetType": "work",
+			"@key":       work.Key(),
+		}
+		// if err != nil {
+		// 	return nil, errors.WrapError(err, "couldn't get map from museum")
+		// }
 
 		saleMap := make(map[string]interface{})
 
 		saleMap["@assetType"] = "sale12"
-		saleMap["boughtWork"] = work
-		saleMap["prevOwner"] = museumKey
+		saleMap["boughtWork"] = workMap
+		saleMap["prevOwner"] = res
 		saleMap["price"] = price
 
 		saleAsset, err := assets.NewAsset(saleMap)
